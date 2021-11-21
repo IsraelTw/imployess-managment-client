@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import EmployessTable from './EmployessTable';
 import AddEmployee from './AddEmployee';
+import { domain } from '../config';
 
 const ManagmentEmployees = () => {
     const [state, setState] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:3001/managmentEmployees')
+        fetch(`${domain}/managmentEmployees`)
             .then(res => res.json())
             .then(data => setState(data));
     }, []);

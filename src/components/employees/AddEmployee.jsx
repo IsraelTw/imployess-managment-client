@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'semantic-ui-react';
-
+import { domain } from '../config';
 
 const AddEmployee = () => {
     const [user, setUser] = useState({});
@@ -8,7 +8,7 @@ const AddEmployee = () => {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
-        fetch('http://localhost:3001/roles')
+        fetch(`${domain}/roles`)
             .then(res => res.json())
             .then(data => setRoles(data));
     }, [])
@@ -17,7 +17,7 @@ const AddEmployee = () => {
     const handelSubmit = (e) => {
         console.log(user);
         e.preventDefault();
-        fetch('http://localhost:3001/addEmployee', {
+        fetch(`${domain}/addEmployee`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)
@@ -49,7 +49,7 @@ const AddEmployee = () => {
                                     onChange={e => setUser({ ...user, idNumber: e.target.value })} required />
                                 <Form.Input fluid label='Manager Name' placeholder='Manager Name'
                                     onChange={e => setUser({ ...user, manager: e.target.value })} />
-                                <Form.Field label='Role' control='select' 
+                                <Form.Field label='Role' control='select'
                                     onChange={e => setUser({ ...user, EmployeesRoleId: e.target.value })} required>
                                     {roles.map(role => {
                                         return (

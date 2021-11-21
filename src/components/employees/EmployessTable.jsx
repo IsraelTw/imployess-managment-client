@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'semantic-ui-react';
 import './EmployeesTable.css';
+import { domain } from '../config';
 
 const EmployessTable = ({ EmployeesList }) => {
     const [roles, setRoles] = useState([]);
@@ -8,7 +9,7 @@ const EmployessTable = ({ EmployeesList }) => {
     const [currentUser, setCurrentUser] = useState({});
 
     useEffect(() => {
-        fetch('http://localhost:3001/roles')
+        fetch(`${domain}/roles`)
             .then(res => res.json())
             .then(data => setRoles(data));
     }, [])
@@ -16,7 +17,7 @@ const EmployessTable = ({ EmployeesList }) => {
     const handelSubmit = (e) => {
         console.log('current user ', currentUser);
         e.preventDefault();
-        fetch('http://localhost:3001/updateEmployee', {
+        fetch(`${domain}/updateEmployee`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(currentUser)
@@ -29,7 +30,7 @@ const EmployessTable = ({ EmployeesList }) => {
     }
 
     const deleteEmployee = (idNumber) => {
-        fetch('http://localhost:3001/deleteEmployee', {
+        fetch(`${domain}/deleteEmployee`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ idNumber })
